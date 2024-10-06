@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://ckansal0:LGk4WcH85NTrjs2w@cluster0.scppx.mongodb.net/
+      database: journal-db
