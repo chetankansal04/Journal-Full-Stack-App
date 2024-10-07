@@ -7,8 +7,7 @@ import App from "./App";
 import AuthForm from "./components/AuthForm";
 import LoginPage from "./components/LoginPage";
 import Home from "./components/Home";
-import UserJournals from "./components/UserJournals.JSX";
-import NewJournal from "./components/NewJournal";
+import UserJournals from "./components/UserJournals.jsx";
 import UserHandle from "./components/UserHandle";
 
 const router = createBrowserRouter([
