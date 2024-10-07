@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/public",
+  baseURL: "https://journalapp-xtcm.onrender.com/public",
 });
 
 export const userLogin = async (loginDetails) => {
@@ -41,7 +41,7 @@ export const createUser = async (user) => {
 // Update an existing user by sending the entire user object (userName and password)
 export const updateUser = async (user) => {
   try {
-    const response = await axios.put(`${API_URL}/users/update`, user); // Send full user entity
+    const response = await api.put(`/users/update`, user); // Send full user entity
     return response.data;
   } catch (error) {
     console.error("Error updating user:", error);
@@ -52,7 +52,7 @@ export const updateUser = async (user) => {
 // Delete a user by ID
 export const deleteUser = async () => {
   try {
-    const response = await axios.delete(`${API_URL}users/delete`);
+    const response = await api.delete(`/users/delete`);
     return response.data;
   } catch (error) {
     console.error("Error deleting user:", error);
