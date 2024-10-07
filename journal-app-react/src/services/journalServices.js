@@ -22,11 +22,8 @@ export const createJournal = async (newJournal, userName) => {
     const response = await api.post(`/journal/${userName}`, newJournal);
     return response.data;
   } catch (error) {
-    if (error.response && error.response.data) {
-      throw new Error(error.response.data);
-    } else {
-      throw new Error("Error creating Journal: " + error.message);
-    }
+    console.error("Error creating journal:", error);
+    throw error;
   }
 };
 
@@ -37,7 +34,6 @@ export const getAllJournals = async (usernName) => {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error("Error fetching journals:", error);
     throw new Error("Error fetching journals: " + error.message);
   }
 };
@@ -57,7 +53,7 @@ export const getJournalById = async (myId, myEntry) => {
 // Update an existing Journal (PUT)
 export const updateJournal = async (id, journalDetails) => {
   try {
-    const response = await api.put(`journal/${id}`,journalDetails);
+    const response = await api.put(`journal/${id}`, journalDetails);
     return response;
   } catch (error) {
     console.error("Error updating Journal:", error);

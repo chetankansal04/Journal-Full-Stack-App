@@ -22,7 +22,7 @@ const AuthForm = () => {
       alert("User created successfully");
       localStorage.setItem("token", response.token);
       localStorage.setItem("userName", response.userName);
-      navigate("/home");
+      navigate("/login");
     } catch(e) {
       console.error("Error creating user:",e);
       alert("Error creating user. Please try again.");

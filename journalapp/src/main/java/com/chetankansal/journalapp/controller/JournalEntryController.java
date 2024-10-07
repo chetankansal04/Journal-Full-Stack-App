@@ -41,18 +41,15 @@ public class JournalEntryController {
         String userName = authentication.getName();
         User user = userService.findByUserName(userName);
         List<JournalEntry> all = user.getJournalEntries();
-        if (!all.isEmpty()) {
-            List<JournalEntryResponse> responseList = all.stream()
-                    .map(journalEntry -> new JournalEntryResponse(
-                    journalEntry.getId().toString(), // Convert ObjectId to String
-                    journalEntry.getTitle(),
-                    journalEntry.getContent(),
-                    journalEntry.getDate() // Keep the date as is
-            ))
-                    .collect(Collectors.toList());
-            return new ResponseEntity<>(responseList, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        List<JournalEntryResponse> responseList = all.stream()
+                .map(journalEntry -> new JournalEntryResponse(
+                journalEntry.getId().toString(), // Convert ObjectId to String
+                journalEntry.getTitle(),
+                journalEntry.getContent(),
+                journalEntry.getDate() // Keep the date as is
+        ))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(responseList, HttpStatus.OK);
     }
 
     @PostMapping("{userName}")

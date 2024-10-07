@@ -13,7 +13,7 @@ const JournalCard = ({
     <div className="flex justify-between border-solid border-2 shadow-sm rounded-xl m-1 p-2">
       <div className="flex-col p-2">
         <h2 className="text-xl font-semibold capitalize">{title}</h2>
-        <p className="text-base text-wrap mb-1 md:min-w-32 min-w-12">
+        <p className="text-base text-wrap mb-1 mr-5 md:min-w-32 min-w-12">
           {content}
         </p>
         <p className="text-sm font-mono">{date}</p>

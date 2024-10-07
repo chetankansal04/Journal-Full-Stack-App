@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/",
+  baseURL: "http://localhost:8080/public",
 });
 
 export const userLogin = async (loginDetails) => {
@@ -11,7 +11,7 @@ export const userLogin = async (loginDetails) => {
     },
   });
   try {
-    const response = await api.post(`public/login`, loginDetails);
+    const response = await api.post('/login', loginDetails);
     return response.data;
   } catch (error) {
     console.error("Error logging in:", error);
@@ -26,13 +26,12 @@ export const userLogin = async (loginDetails) => {
 };
 
 export const createUser = async (user) => {
-  console.log("Sending login details:", user, {
-    Headers: {
-      Authorization: ``,
-    },
-  });
   try {
-    const response = await api.post(`public/`, user);
+    const response = await api.post("/", user, {
+      Headers: {
+        Authorization: ``,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Error creating user:", error);

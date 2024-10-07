@@ -18,11 +18,7 @@ const UserJournals = () => {
   const journalResponse = async (userName) => {
     try {
       const response = await getAllJournals(userName);
-      if (response.length === 0) {
-        navigate("/new-journal");
-      } else {
         setJournals(response);
-      }
     } catch (error) {
       console.error("Error fetching journals:", error);
       alert("Error fetching journals. Please try again.");
@@ -68,7 +64,8 @@ const UserJournals = () => {
       <div className="flex justify-center mb-10">
         <NewJournal setJournalAdded={setJournalAdded}></NewJournal>
       </div>
-      <div className="flex flex-col p-3 self-center bg-white shadow-lg rounded-xl md:w-4/5 ">
+      {journals.length > 0 &&
+      <div className="flex flex-col p-3 self-center bg-white shadow-lg rounded-xl md:w-3/4 sm:w-4/5 ">
         <p className="text-lg font-semibold italic text-center mb-2">
           Your Journals
         </p>
@@ -86,6 +83,7 @@ const UserJournals = () => {
           ))}
         </div>
       </div>
+      }
       
     </div>
   );

@@ -9,6 +9,7 @@ import LoginPage from "./components/LoginPage";
 import Home from "./components/Home";
 import UserJournals from "./components/UserJournals.JSX";
 import NewJournal from "./components/NewJournal";
+import UserHandle from "./components/UserHandle";
 
 const router = createBrowserRouter([
   {
@@ -31,8 +32,8 @@ const router = createBrowserRouter([
         path: "journal",
         element:<UserJournals></UserJournals>
       },
-      {path: "new-journal",
-        element: <NewJournal></NewJournal>
+      {path: "userprofile",
+        element: <UserHandle></UserHandle>
       }
     ],
   },
