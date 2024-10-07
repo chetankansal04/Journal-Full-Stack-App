@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://journalapp-xtcm.onrender.com/public",
+  baseURL: "https://journalapp-q113.onrender.com/public",
 });
 
 export const userLogin = async (loginDetails) => {

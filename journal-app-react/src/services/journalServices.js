@@ -6,7 +6,7 @@ const getToken = () => {
 
 // Create an Axios instance with default configuration
 const api = axios.create({
-  baseURL: "https://journalapp-xtcm.onrender.com/public",
+  baseURL: "https://journalapp-q113.onrender.com/public",
 });
 
 api.interceptors.request.use((config) => {
