@@ -21,7 +21,6 @@ on:
       - ".github/**"
 
 jobs:
-
   frontend-build:
     if: |
       github.event_name == 'push' && (
@@ -61,14 +60,20 @@ jobs:
         run: npm run build
 
   backend-build:
-    if: 
-      contains(github.event.commits.*.modified, 'journalapp') || 
-      contains(github.event.commits.*.modified, '.vscode') || 
-      contains(github.event.commits.*.modified, 'README.md') || 
-      contains(github.event.commits.*.modified, '.github')
-
+    if: |
+      github.event_name == 'push' && (
+        contains(github.event.head_commit.message, 'journalapp') ||
+        contains(github.event.head_commit.message, '.vscode') ||
+        contains(github.event.head_commit.message, 'README.md') ||
+        contains(github.event.head_commit.message, '.github')
+      ) ||
+      github.event_name == 'pull_request' && (
+        contains(github.event.pull_request.changed_files, 'journalapp') ||
+        contains(github.event.pull_request.changed_files, '.vscode') ||
+        contains(github.event.pull_request.changed_files, 'README.md') ||
+        contains(github.event.pull_request.changed_files, '.github')
+      )
     runs-on: ubuntu-latest
-
     services:
       mongodb:
         image: mongo:latest
