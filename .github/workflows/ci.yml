@@ -20,8 +20,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]  # Version for Node.js/React
-        java-version: [21]    # Version for Java (eclipse-temurin:21 in Docker)
+        node-version: [16.x] # Version for Node.js/React
+        java-version: [21] # Version for Java (eclipse-temurin:21 in Docker)
 
     steps:
       # Checkout the code
@@ -36,37 +36,36 @@ jobs:
 
       # Install dependencies and build the React app (in journal-app-react folder)
       - name: Install dependencies for React
-        working-directory: ./journal-app-react  # Path to React frontend
+        working-directory: ./journal-app-react # Path to React frontend
         run: npm install
 
       - name: Build React app
-        working-directory: ./journal-app-react  # Path to React frontend
+        working-directory: ./journal-app-react # Path to React frontend
         run: npm run build
 
       # Run React tests
       - name: Run React tests
-        working-directory: ./journal-app-react  # Path to React frontend
+        working-directory: ./journal-app-react # Path to React frontend
         run: npm test
 
       # Set up Java for Spring Boot
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
+          distribution: "temurin"
           java-version: ${{ matrix.java-version }}
 
       # Install dependencies and build Spring Boot app using Maven Wrapper (./mvnw)
       - name: Build Spring Boot app
-        working-directory: ./journalapp  # Path to Spring Boot backend
+        working-directory: ./journalapp # Path to Spring Boot backend
         run: ./mvnw clean install
 
       # Run Spring Boot tests using Maven Wrapper (./mvnw)
       - name: Run Spring Boot tests
-        working-directory: ./journalapp  # Path to Spring Boot backend
+        working-directory: ./journalapp # Path to Spring Boot backend
         run: ./mvnw test
 
       # Docker Build and Run (for backend if needed)
       - name: Build Docker image for backend
-        working-directory: ./journalapp  # Path to Spring Boot backend
+        working-directory: ./journalapp # Path to Spring Boot backend
         run: docker build -t journalapp-backend .
-
