@@ -3,7 +3,7 @@ name: CI Workflow for React and Spring Boot
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - "journal-app-react/**" # Frontend folder
       - "journalapp/**" # Backend folder
@@ -11,7 +11,7 @@ on:
       - "README.md" # Changes in README or root-level files
   pull_request:
     branches:
-      - main
+      - master
     paths:
       - "journal-app-react/**"
       - "journalapp/**"
@@ -60,12 +60,29 @@ jobs:
 
     strategy:
       matrix:
-        java-version: [21] # Version for Java
+        node-version: [20] # Updated to Node.js version 20 for React
+        java-version: [21] # Version for Java (eclipse-temurin:21 in Docker)
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Node.js (React) setup
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Install dependencies and build the React app (in journal-app-react folder)
+      - name: Install dependencies for React
+        working-directory: ./journal-app-react # Path to React frontend
+        run: npm install
+
+      - name: Build React app
+        working-directory: ./journal-app-react # Path to React frontend
+        run: npm run build
+
+      # Set up Java for Spring Boot
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
