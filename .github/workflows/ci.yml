@@ -22,82 +22,66 @@ on:
 
 jobs:
   frontend-build:
-    if: contains(github.event.commits.modified , '.github/')
-
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [20] # Version for Node.js/React
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Check for modified frontend files
+        id: check_modified_frontend
+        run: |
+          MODIFIED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          echo "MODIFIED_FILES=${MODIFIED_FILES}" >> $GITHUB_ENV
+
       - name: Set up Node.js
+        if: contains(env.MODIFIED_FILES, '.github/')
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "20" # Specify the required Node.js version
 
-      - name: Install dependencies for React
+      - name: Install dependencies
+        if: contains(env.MODIFIED_FILES, 'journal-app-react/')
         working-directory: ./journal-app-react
         run: npm install
 
       - name: Build React app
+        if: contains(env.MODIFIED_FILES, 'journal-app-react/')
         working-directory: ./journal-app-react
         run: npm run build
 
   backend-build:
-    if: |
-      github.event_name == 'push' && (
-        contains(github.event.head_commit.message, 'journalapp') ||
-        contains(github.event.head_commit.message, '.vscode') ||
-        contains(github.event.head_commit.message, 'README.md') ||
-        contains(github.event.head_commit.message, '.github')
-      ) ||
-      github.event_name == 'pull_request' && (
-        contains(github.event.pull_request.changed_files, 'journalapp') ||
-        contains(github.event.pull_request.changed_files, '.vscode') ||
-        contains(github.event.pull_request.changed_files, 'README.md') ||
-        contains(github.event.pull_request.changed_files, '.github')
-      )
-        
     runs-on: ubuntu-latest
-    services:
-      mongodb:
-        image: mongo:latest
-        ports:
-          - 27017:27017
-
-    strategy:
-      matrix:
-        java-version: [21] # Version for Java (eclipse-temurin:21 in Docker)
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up Java for Spring Boot
+      - name: Check for modified backend files
+        id: check_modified_backend
+        run: |
+          MODIFIED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          echo "MODIFIED_FILES=${MODIFIED_FILES}" >> $GITHUB_ENV
+
       - name: Set up Java
+        if: contains(env.MODIFIED_FILES, 'journalapp/')
         uses: actions/setup-java@v3
         with:
           distribution: "temurin"
-          java-version: ${{ matrix.java-version }}
+          java-version: "21"
 
       - name: Build Spring Boot app
+        if: contains(env.MODIFIED_FILES, 'journalapp/')
         working-directory: ./journalapp
         run: ./mvnw clean install
 
-      - name: Run Spring Boot tests
-        working-directory: ./journalapp
-        run: ./mvnw test
-
       - name: Build Docker image for backend
+        if: contains(env.MODIFIED_FILES, 'journalapp/')
         working-directory: ./journalapp
         run: docker build -t chetankansal/journalserverapp:latest .
 
       - name: Push Docker image to Docker Hub
+        if: contains(env.MODIFIED_FILES, 'journalapp/')
+        working-directory: ./journalapp
         run: docker push chetankansal/journalserverapp:latest
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
