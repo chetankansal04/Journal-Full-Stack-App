@@ -58,7 +58,6 @@ jobs:
       - name: Build Docker image for backend
         working-directory: ./journalapp # Path to Spring Boot backend
         run: docker build -t journalapp-backend .
-<<<<<<< HEAD
 =======
 
         
