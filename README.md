@@ -6,10 +6,10 @@ This is a **Journal Management Application** built using **React** for the front
 
 ## Features
 
-- User profile and journal entry management with secure CRUD operations
-- Seamless storage and retrieval of user profiles and journal entries using **MongoDB**
-- Responsive and user-friendly interface built with **React**
-- Backend powered by **Spring Boot** and deployed on **Render.com** for enhanced accessibility
+- User profile and journal entry management with secure CRUD operations.
+- Seamless storage and retrieval of user profiles and journal entries using **MongoDB**.
+- Responsive and user-friendly interface built with **React**.
+- Backend powered by **Spring Boot** and deployed on **Render.com** for enhanced accessibility.
 
 ## Deployment
 
