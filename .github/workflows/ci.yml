@@ -15,7 +15,7 @@ on:
 jobs:
   frontend-build:
     runs-on: ubuntu-latest
-    if: ${{(contains(github.event.head_commit.modified, 'journal-app-react') || contains(github.event.head_commit.modified, '.github') || contains(github.event.head_commit.modified, '.vscode')) || contains(github.event.head_commit.modified, 'README.md') }}
+    if: ${{github.event_name == 'push' && (contains(github.event.head_commit.modified, 'journal-app-react') || contains(github.event.head_commit.modified, '.github') || contains(github.event.head_commit.modified, '.vscode')) || contains(github.event.head_commit.modified, 'README.md') }}
 
     steps:
       - name: Checkout code
@@ -36,7 +36,7 @@ jobs:
 
   backend-build:
     runs-on: ubuntu-latest
-    if: ${{ (contains(github.event.head_commit.modified, 'journalapp') || contains(github.event.head_commit.modified, '.github') || contains(github.event.head_commit.modified, '.vscode') || contains(github.event.head_commit.modified, 'README.md'))}}
+    if: ${{github.event_name == 'push' && (contains(github.event.head_commit.modified, 'journalapp') || contains(github.event.head_commit.modified, '.github') || contains(github.event.head_commit.modified, '.vscode') || contains(github.event.head_commit.modified, 'README.md'))}}
 
     steps:
       - name: Checkout code
