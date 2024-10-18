@@ -5,6 +5,7 @@ import React from "react";
 const AvatarSvg = () => {
   const userName = localStorage.getItem("userName") || "Guest";
 
+  // Generate a random avatar based on the user's name using Dicebear library
   const avatar = createAvatar(lorelei, {
     seed: userName,
     dataUri: true,
