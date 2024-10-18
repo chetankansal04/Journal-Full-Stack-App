@@ -23,7 +23,7 @@ on:
 jobs:
   frontend-build:
     runs-on: ubuntu-latest
-    if: ${{!contains(github.event.head_commit.modified, '/journalapp')  }}
+    if: github.event.head_commit.modified == 'journal-react-app/**' || github.event.head_commit.modified == '.github/**' || github.event.head_commit.modified == 'README.md' || github.event.head_commit.modified == '.vscode/**'
 
     steps:
       - name: Checkout code
@@ -43,7 +43,7 @@ jobs:
         run: npm run build
 
   backend-build:
-    if: ${{!contains(github.event.head_commit.modified, '/journal-app-react') }}
+    if: github.event.head_commit.modified == 'journalapp/**' || github.event.head_commit.modified == '.github/**' || github.event.head_commit.modified == 'README.md' || github.event.head_commit.modified == '.vscode/**'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
