@@ -51,6 +51,10 @@ jobs:
         working-directory: ./journalapp
         run: ./mvnw clean install
 
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+
       - name: Build Docker image for backend
         working-directory: ./journalapp
         run: docker build -t chetankansal/journalserverapp:latest .
@@ -58,6 +62,3 @@ jobs:
       - name: Push Docker image to Docker Hub
         working-directory: ./journalapp
         run: docker push chetankansal/journalserverapp:latest
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
