@@ -15,7 +15,7 @@ on:
 jobs:
   frontend-build:
     runs-on: ubuntu-latest
-    if: ${{!contains(github.event.head_commit.modified, 'journalapp') }}
+    if: ${{contains(github.event.head_commit.modified, 'journalapp') }}
 
     steps:
       - name: Checkout code
@@ -35,7 +35,7 @@ jobs:
         run: npm run build
 
   backend-build:
-    if: ${{!contains(github.event.head_commit.modified, 'journal-app-react') }}
+    if: ${{contains(github.event.head_commit.modified, 'journal-app-react') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
