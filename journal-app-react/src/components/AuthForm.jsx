@@ -28,7 +28,6 @@ const AuthForm = () => {
       alert("Error creating user. Please try again.");
     }
   };
-
   return (
     <div className="mb-0 mt-6 space-y-4 rounded-xl p-4 shadow-lg sm:p-6 lg:p-8 w-2/3 md:w-1/3 place-self-center">
       <form
