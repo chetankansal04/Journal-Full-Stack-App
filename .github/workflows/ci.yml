@@ -3,13 +3,53 @@ name: CI Workflow for React and Spring Boot
 on:
   push:
     branches:
-      - master
+      - main
+    paths:
+      - "journal-app-react/**" # Frontend folder
+      - "journalapp/**" # Backend folder
+      - ".vscode/**" # Changes in parent folder
+      - "README.md" # Changes in README or root-level files
   pull_request:
     branches:
-      - master
+      - main
+    paths:
+      - "journal-app-react/**"
+      - "journalapp/**"
+      - ".vscode/**"
+      - "README.md"
 
 jobs:
-  build-and-test:
+  frontend-build:
+    if: contains(github.event.commits.*.modified, 'journal-app-react') || contains(github.event.commits.*.modified, '.vscode') || contains(github.event.commits.*.modified, 'README.md')
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x] # Version for Node.js/React
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies for React
+        working-directory: ./journal-app-react
+        run: npm install
+
+      - name: Build React app
+        working-directory: ./journal-app-react
+        run: npm run build
+
+      - name: Run React tests
+        working-directory: ./journal-app-react
+        run: npm test
+
+  backend-build:
+    if: contains(github.event.commits.*.modified, 'journalapp') || contains(github.event.commits.*.modified, '.vscode') || contains(github.event.commits.*.modified, 'README.md')
     runs-on: ubuntu-latest
 
     services:
@@ -20,49 +60,32 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20] # Updated to Node.js version 20 for React
-        java-version: [21] # Version for Java (eclipse-temurin:21 in Docker)
+        java-version: [21] # Version for Java
 
     steps:
-      # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Install dependencies and build the React app (in journal-app-react folder)
-      - name: Install dependencies for React
-        working-directory: ./journal-app-react # Path to React frontend
-        run: npm install
-
-      - name: Build React app
-        working-directory: ./journal-app-react # Path to React frontend
-        run: npm run build
-
-      # Set up Java for Spring Boot
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
           distribution: "temurin"
           java-version: ${{ matrix.java-version }}
 
-      # Install dependencies and build Spring Boot app using Maven Wrapper (./mvnw)
       - name: Build Spring Boot app
-        working-directory: ./journalapp # Path to Spring Boot backend
+        working-directory: ./journalapp
         run: ./mvnw clean install
 
-      # Run Spring Boot tests using Maven Wrapper (./mvnw)
       - name: Run Spring Boot tests
-        working-directory: ./journalapp # Path to Spring Boot backend
+        working-directory: ./journalapp
         run: ./mvnw test
 
-      # Docker Build and Run (for backend if needed)
       - name: Build Docker image for backend
-        working-directory: ./journalapp # Path to Spring Boot backend
-<<<<<<< HEAD
-        run: docker build -t journalapp-backend .
-=======
-        run: docker build -t journalapp-backend .
-=======
+        working-directory: ./journalapp
+        run: docker build -t chetankansal/journalserverapp:latest .
 
-        
->>>>>>> 8dd9b870a2fe8a33750b18de553e219a86bcc2b6
->>>>>>> f39e8942385db27c8089b9a0244694cd79a80198
+      - name: Push Docker image to Docker Hub
+        run: docker push chetankansal/journalserverapp:latest
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
