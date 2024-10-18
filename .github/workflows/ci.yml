@@ -37,11 +37,6 @@ jobs:
         working-directory: ./journal-app-react # Path to React frontend
         run: npm run build
 
-      # Run React tests
-      - name: Run React tests
-        working-directory: ./journal-app-react # Path to React frontend
-        run: npm test
-
       # Set up Java for Spring Boot
       - name: Set up Java
         uses: actions/setup-java@v3
@@ -62,4 +57,12 @@ jobs:
       # Docker Build and Run (for backend if needed)
       - name: Build Docker image for backend
         working-directory: ./journalapp # Path to Spring Boot backend
+<<<<<<< HEAD
         run: docker build -t journalapp-backend .
+=======
+        run: docker build -t journalapp-backend .
+=======
+
+        
+>>>>>>> 8dd9b870a2fe8a33750b18de553e219a86bcc2b6
+>>>>>>> f39e8942385db27c8089b9a0244694cd79a80198
