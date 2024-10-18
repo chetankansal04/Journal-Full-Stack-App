@@ -28,12 +28,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Node.js (React) setup
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
       # Install dependencies and build the React app (in journal-app-react folder)
       - name: Install dependencies for React
         working-directory: ./journal-app-react # Path to React frontend
