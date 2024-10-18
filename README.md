@@ -16,4 +16,4 @@ This is a **Journal Management Application** built using **React** for the front
 - **Frontend:** Deployed on [Vercel](https://journal-app-chetankansal.vercel.app/)
 - **Backend:** Deployed on [Render.com](https://journalapp-xtcm.onrender.com)
 
-> ⚠️ **Warning:** The first request to the backend may experience a delay due to the Render.com free plan. This is a common occurrence as the server may take longer to spin up after being idle. Subsequent requests should be faster.
+> ⚠️ **Warning:** The first request to the backend may experience a delay due to the Render.com free plan. This is a common occurrence as the server may take longer to spin up after being idle. Subsequent requests should be faster .
