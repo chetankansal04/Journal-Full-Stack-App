@@ -3,10 +3,10 @@ name: CI Workflow for React and Spring Boot
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   build-and-test:
@@ -27,12 +27,6 @@ jobs:
       # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
-
-      # Node.js (React) setup
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
 
       # Install dependencies and build the React app (in journal-app-react folder)
       - name: Install dependencies for React
@@ -69,3 +63,8 @@ jobs:
       - name: Build Docker image for backend
         working-directory: ./journalapp # Path to Spring Boot backend
         run: docker build -t journalapp-backend .
+<<<<<<< HEAD
+=======
+
+        
+>>>>>>> 8dd9b870a2fe8a33750b18de553e219a86bcc2b6
