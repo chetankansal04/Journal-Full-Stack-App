@@ -21,17 +21,13 @@ on:
       - ".github/**"
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Debug - List modified files
-        run: echo "${{ toJson(github.event.head_commit.modified) }}"
 
   frontend-build:
-    if: contains(join(github.event.head_commit.modified, ','), 'journal-app-react') || contains(join(github.event.head_commit.modified, ','), '.vscode') || contains(join(github.event.head_commit.modified, ','), 'README.md') || contains(join(github.event.head_commit.modified, ','), '.github')
+    if: 
+      contains(join(github.event.head_commit.modified, ' '), 'journal-app-react') || 
+      contains(join(github.event.head_commit.modified, ' '), '.vscode') || 
+      contains(join(github.event.head_commit.modified, ' '), 'README.md') || 
+      contains(join(github.event.head_commit.modified, ' '), '.github')
     runs-on: ubuntu-latest
 
     strategy:
@@ -56,7 +52,11 @@ jobs:
         run: npm run build
 
   backend-build:
-    if: contains(join(github.event.head_commit.modified, ','), 'journalapp') || contains(join(github.event.head_commit.modified, ','), '.vscode') || contains(join(github.event.head_commit.modified, ','), 'README.md') || contains(join(github.event.head_commit.modified, ','), '.github')
+    if: 
+      contains(join(github.event.head_commit.modified, ' '), 'journalapp') || 
+      contains(join(github.event.head_commit.modified, ' '), '.vscode') || 
+      contains(join(github.event.head_commit.modified, ' '), 'README.md') || 
+      contains(join(github.event.head_commit.modified, ' '), '.github')
     runs-on: ubuntu-latest
 
     services:
