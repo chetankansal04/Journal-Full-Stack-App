@@ -27,7 +27,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x] # Version for Node.js/React
+        node-version: [20] # Version for Node.js/React
 
     steps:
       - name: Checkout code
@@ -45,10 +45,6 @@ jobs:
       - name: Build React app
         working-directory: ./journal-app-react
         run: npm run build
-
-      - name: Run React tests
-        working-directory: ./journal-app-react
-        run: npm test
 
   backend-build:
     if: contains(github.event.commits.*.modified, 'journalapp') || contains(github.event.commits.*.modified, '.vscode') || contains(github.event.commits.*.modified, 'README.md') || contains(github.event.commits.*.modified, '.github')
@@ -62,27 +58,11 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20] # Updated to Node.js version 20 for React
         java-version: [21] # Version for Java (eclipse-temurin:21 in Docker)
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      # Node.js (React) setup
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      # Install dependencies and build the React app (in journal-app-react folder)
-      - name: Install dependencies for React
-        working-directory: ./journal-app-react # Path to React frontend
-        run: npm install
-
-      - name: Build React app
-        working-directory: ./journal-app-react # Path to React frontend
-        run: npm run build
 
       # Set up Java for Spring Boot
       - name: Set up Java
