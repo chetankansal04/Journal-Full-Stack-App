@@ -4,26 +4,14 @@ on:
   push:
     branches:
       - master
-    paths:
-      - "journal-app-react/**" # Frontend folder
-      - "journalapp/**" # Backend folder
-      - ".vscode/**" # Changes in parent folder
-      - "README.md" # Changes in README or root-level files
-      - ".github/**"
   pull_request:
     branches:
       - master
-    paths:
-      - "journal-app-react/**"
-      - "journalapp/**"
-      - ".vscode/**"
-      - "README.md"
-      - ".github/**"
 
 jobs:
   frontend-build:
-    if: contains(github.event.commits.*.modified, '.github/')
     runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') && (github.event_name == 'push' && !contains(github.event.head_commit.modified, 'journalapp') || github.event_name == 'pull_request' && !contains(github.event.pull_request.changed_files, 'journalapp')) }}
 
     steps:
       - name: Checkout code
@@ -43,7 +31,7 @@ jobs:
         run: npm run build
 
   backend-build:
-    if: contains(github.event.commits.*.modified, 'journalapp/')
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') && (github.event_name == 'push' && !contains(github.event.head_commit.modified, 'journal-app-react') || github.event_name == 'pull_request' && !contains(github.event.pull_request.changed_files, 'journal-app-react')) }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
