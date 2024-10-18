@@ -50,6 +50,11 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
 
+      # Set execute permissions for Maven Wrapper
+      - name: Set execute permissions for mvnw
+        working-directory: ./journalapp  # Path to Spring Boot backend
+        run: chmod +x mvnw  # Add execute permission
+
       # Install dependencies and build Spring Boot app using Maven Wrapper (./mvnw)
       - name: Build Spring Boot app
         working-directory: ./journalapp  # Path to Spring Boot backend
