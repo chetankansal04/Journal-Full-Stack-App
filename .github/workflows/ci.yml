@@ -5,21 +5,17 @@ on:
     branches:
       - master
     paths:
-      - "**"                # Trigger on any change
-      - "!journal-app-react/**"  # Exclude frontend folder changes for the backend job
-      - "!journalapp/**"
+      - "**"
   pull_request:
     branches:
       - master
     paths:
-      - "**"                # Trigger on any change
-      - "!journal-app-react/**"  # Exclude frontend folder changes for the backend job
-      - "!journalapp/**"
+      - "**"
 
 jobs:
   frontend-build:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.modified, 'journal-app-react') && !contains(github.event.head_commit.modified, 'journalapp') }}
+    if: ${{(contains(github.event.head_commit.modified, 'journal-app-react') || contains(github.event.head_commit.modified, '.github') || contains(github.event.head_commit.modified, '.vscode')) || contains(github.event.head_commit.modified, 'README.md') }}
 
     steps:
       - name: Checkout code
@@ -39,8 +35,9 @@ jobs:
         run: npm run build
 
   backend-build:
-    if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.modified, 'journal-app-react') && !contains(github.event.head_commit.modified, 'journalapp') }}
     runs-on: ubuntu-latest
+    if: ${{ (contains(github.event.head_commit.modified, 'journalapp') || contains(github.event.head_commit.modified, '.github') || contains(github.event.head_commit.modified, '.vscode') || contains(github.event.head_commit.modified, 'README.md'))}}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -61,7 +58,6 @@ jobs:
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
 
       - name: Build Docker image for backend
         working-directory: ./journalapp
