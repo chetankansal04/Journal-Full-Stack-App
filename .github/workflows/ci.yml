@@ -43,6 +43,10 @@ jobs:
           distribution: "temurin"
           java-version: "21"
 
+      - name: Make Maven Wrapper executable
+        working-directory: ./journalapp
+        run: chmod +x mvnw
+
       - name: Build Spring Boot app
         working-directory: ./journalapp
         run: ./mvnw clean install
