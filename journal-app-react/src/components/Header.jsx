@@ -17,7 +17,7 @@ const Header = () => {
         <Link to="/journal">
           <div className="flex items-center transition-transform duration-300 hover:scale-110">
             <GrNotes className="mr-2  size-6" />
-            NoteWorthy
+            Journal Entry App
           </div>
         </Link>
         <Link to="userprofile">

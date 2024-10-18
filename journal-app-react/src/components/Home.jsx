@@ -14,7 +14,7 @@ export const Home = () => {
         experience. Enjoy robust backend features and a modern, user-friendly
         frontend that adapts to your needs. Start your journaling journey today
         and explore how easy it is to create, update, and manage your entries
-        with our cutting-edge technology!
+        with our application !
         </p>
       </div>
       <Link to="/journal">
