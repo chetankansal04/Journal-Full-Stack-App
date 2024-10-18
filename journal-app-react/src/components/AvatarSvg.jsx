@@ -5,6 +5,7 @@ import React from "react";
 const AvatarSvg = () => {
   const userName = localStorage.getItem("userName") || "Guest";
 
+  
   const avatar = createAvatar(lorelei, {
     seed: userName,
     dataUri: true,
