@@ -22,7 +22,7 @@ on:
 
 jobs:
   frontend-build:
-    if: contains(github.event.head_commit.modified, '.github/')
+    if: contains(github.event.commits.modified , '.github/')
 
 
     runs-on: ubuntu-latest
