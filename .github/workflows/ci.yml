@@ -9,6 +9,7 @@ on:
       - "journalapp/**" # Backend folder
       - ".vscode/**" # Changes in parent folder
       - "README.md" # Changes in README or root-level files
+      - ".github/**"
   pull_request:
     branches:
       - master
@@ -17,10 +18,11 @@ on:
       - "journalapp/**"
       - ".vscode/**"
       - "README.md"
+      - ".github/**"
 
 jobs:
   frontend-build:
-    if: contains(github.event.commits.*.modified, 'journal-app-react') || contains(github.event.commits.*.modified, '.vscode') || contains(github.event.commits.*.modified, 'README.md')
+    if: contains(github.event.commits.*.modified, 'journal-app-react') || contains(github.event.commits.*.modified, '.vscode') || contains(github.event.commits.*.modified, 'README.md') || contains(github.event.commits.*.modified, '.github')
     runs-on: ubuntu-latest
 
     strategy:
@@ -49,7 +51,7 @@ jobs:
         run: npm test
 
   backend-build:
-    if: contains(github.event.commits.*.modified, 'journalapp') || contains(github.event.commits.*.modified, '.vscode') || contains(github.event.commits.*.modified, 'README.md')
+    if: contains(github.event.commits.*.modified, 'journalapp') || contains(github.event.commits.*.modified, '.vscode') || contains(github.event.commits.*.modified, 'README.md') || contains(github.event.commits.*.modified, '.github')
     runs-on: ubuntu-latest
 
     services:
