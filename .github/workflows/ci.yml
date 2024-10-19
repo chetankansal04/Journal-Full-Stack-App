@@ -49,12 +49,12 @@ jobs:
         run: npm run build
 
   backend-build:
+   runs-on: ubuntu-latest
    if: |
       contains(github.event.head_commit.modified, 'journalapp/') || 
       contains(github.event.head_commit.modified, '.github/') || 
       contains(github.event.head_commit.modified, 'README.md') || 
       contains(github.event.head_commit.modified, '.vscode/') 
-   runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
