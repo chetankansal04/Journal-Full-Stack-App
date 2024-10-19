@@ -9,6 +9,7 @@ on:
       - "journalapp/**"          # Backend folder
       - ".vscode/**"             # Changes in parent folder
       - "README.md"              # Changes in README or root-level files
+root-level files
       - ".github/**"             # Changes in GitHub workflows
   pull_request:
     branches:
@@ -17,13 +18,18 @@ on:
       - "journal-app-react/**"  # Frontend folder
       - "journalapp/**"          # Backend folder
       - ".vscode/**"             # Changes in parent folder
-      - "README.md"              # Changes in README or root-level files
+      - "README.md"              # Changes in README or root-level filesroot-level files
+root-level files
       - ".github/**"             # Changes in GitHub workflows
 
 jobs:
   frontend-build:
     runs-on: ubuntu-latest
-    if: github.event.head_commit.modified == 'journal-react-app/**' || github.event.head_commit.modified == '.github/**' || github.event.head_commit.modified == 'README.md' || github.event.head_commit.modified == '.vscode/**'
+    if: |
+      contains(github.event.head_commit.modified, 'journal-app-react/') || 
+      contains(github.event.head_commit.modified, '.github/') || 
+      contains(github.event.head_commit.modified, 'README.md') || 
+      contains(github.event.head_commit.modified, '.vscode/')
 
     steps:
       - name: Checkout code
@@ -43,8 +49,12 @@ jobs:
         run: npm run build
 
   backend-build:
-    if: github.event.head_commit.modified == 'journalapp/**' || github.event.head_commit.modified == '.github/**' || github.event.head_commit.modified == 'README.md' || github.event.head_commit.modified == '.vscode/**'
-    runs-on: ubuntu-latest
+   if: |
+      contains(github.event.head_commit.modified, 'journalapp/') || 
+      contains(github.event.head_commit.modified, '.github/') || 
+      contains(github.event.head_commit.modified, 'README.md') || 
+      contains(github.event.head_commit.modified, '.vscode/') 
+   runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
