@@ -16,7 +16,8 @@ const EditJournal = ({ journal, setJournalAdded, closeModal }) => {
   const handleInputChange = (e) => {
     setJournalDetails({ ...journalDetails, [e.target.id]: e.target.value });
   };
-
+  
+  
   const handleEditJournal = async (e) => {
     e.preventDefault();
     try {
