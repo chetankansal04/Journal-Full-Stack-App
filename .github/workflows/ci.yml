@@ -53,7 +53,7 @@ jobs:
       contains(github.event.head_commit.modified, '.github/') || 
       contains(github.event.head_commit.modified, 'README.md') || 
       contains(github.event.head_commit.modified, '.vscode/') 
-    steps:
+   steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
