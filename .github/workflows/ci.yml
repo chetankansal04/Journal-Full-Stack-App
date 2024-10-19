@@ -8,8 +8,7 @@ on:
       - "journal-app-react/**"  # Frontend folder
       - "journalapp/**"          # Backend folder
       - ".vscode/**"             # Changes in parent folder
-      - "README.md"              # Changes in README or root-level files
-root-level files
+      - "README.md"              # Changes in README or root-level files root-level files
       - ".github/**"             # Changes in GitHub workflows
   pull_request:
     branches:
@@ -18,8 +17,7 @@ root-level files
       - "journal-app-react/**"  # Frontend folder
       - "journalapp/**"          # Backend folder
       - ".vscode/**"             # Changes in parent folder
-      - "README.md"              # Changes in README or root-level filesroot-level files
-root-level files
+      - "README.md"              # Changes in README or root-level filesroot-level files  root-level files
       - ".github/**"             # Changes in GitHub workflows
 
 jobs:
