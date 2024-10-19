@@ -3,31 +3,15 @@ name: CI Workflow for React and Spring Boot
 on:
   push:
     branches:
-      - master
-    paths:
-      - "journal-app-react/**"  # Frontend folder
-      - "journalapp/**"          # Backend folder
-      - ".vscode/**"             # Changes in parent folder
-      - "README.md"              # Changes in README or root-level files root-level files
-      - ".github/**"             # Changes in GitHub workflows
+      - master          # Changes in GitHub workflows
   pull_request:
     branches:
       - master
-    paths:
-      - "journal-app-react/**"  # Frontend folder
-      - "journalapp/**"          # Backend folder
-      - ".vscode/**"             # Changes in parent folder
-      - "README.md"              # Changes in README or root-level filesroot-level files  root-level files
-      - ".github/**"             # Changes in GitHub workflows
-
 jobs:
   frontend-build:
     runs-on: ubuntu-latest
     if: |
-      contains(github.event.head_commit.modified, 'journal-app-react/') || 
-      contains(github.event.head_commit.modified, '.github/') || 
-      contains(github.event.head_commit.modified, 'README.md') || 
-      contains(github.event.head_commit.modified, '.vscode/')
+      contains(github.event.head_commit.modified, 'journalapp/')
 
     steps:
       - name: Checkout code
@@ -49,10 +33,7 @@ jobs:
   backend-build:
    runs-on: ubuntu-latest
    if: |
-      contains(github.event.head_commit.modified, 'journalapp/') || 
-      contains(github.event.head_commit.modified, '.github/') || 
-      contains(github.event.head_commit.modified, 'README.md') || 
-      contains(github.event.head_commit.modified, '.vscode/') 
+      contains(github.event.head_commit.modified, 'journal-app-react/') 
    steps:
       - name: Checkout code
         uses: actions/checkout@v3
