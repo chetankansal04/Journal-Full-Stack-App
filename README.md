@@ -10,6 +10,7 @@ This is a **Journal Management Application** built using **React** for the front
 - Seamless storage and retrieval of user profiles and journal entries using **MongoDB**.
 - Responsive and user-friendly interface built with **React**.
 - Backend powered by **Spring Boot** and deployed on **Render.com** for enhanced accessibility.
+- CI/CD implemented using Github Actions.
 
 ## Deployment
 
